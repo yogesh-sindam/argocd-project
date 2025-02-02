@@ -41,6 +41,7 @@ $kubectl config current-context
 iam-root-account@hub-cluster.ap-southeast-2.eksctl.io
 
 all the action is preformed on hub cluster
+##########################
 
 **step2 start:**
 install argocd with this command 
@@ -100,6 +101,7 @@ edit inbound rule for hub server
 edit port, protocal( all traffic for testing)
 
 hit url: pulic ip of hub ec2-instance (103.105.0.0:32326)
+########################## 
 
 **step3 start**:
 username is admin
@@ -115,25 +117,28 @@ b0Q3cXByR2hVbHEydzVYVQ==
 copy the password(b0Q3cXByR2hVbHEydzVYVQ==)
 this is in encrypted format, need to decode 
 $echo b0Q3cXByR2hVbHEydzVYVQ== | base64 --decode
-abcdhdfk(this is actial password)
+abcdhdfk(this is actial password without "%")
 log-in the **argocd page:**
-
+##########################
 
 **step4 start:**
 
 need to add 2 spoke cluster to hub cluster
-you loggedin to argo cd through UI
-**NOTE-** you can add the cluster directly using argocd api
+you log-in to argo cd through UI
+**NOTE-** you can't add the cluster directly using argocd User interface
 to add the cluster you need to log-in to argocd CLI api also 
 
 $argocd login argocdip
+$argocd login 103.105.0.0:32326 
 username: admin
 pass: abcdhdfk
 
 $argocd cluster add context_of_cluster --server ip_address_withport_argocd_page
-
-**NOTE: ** Do the same for spoke 2 cluster also
-
+for example:
+  $argocd cluster add iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io --server 103.105.0.0:32326
+**NOTE: ** Do the same for remaining spoke cluster as wll.
+##########################
+ 
 **step5 start:**
 Go to argocd Home page:
 application-> create new application 
@@ -150,6 +155,7 @@ do this to add another cluster also
 
 check your application deployed or not 
 $kubectl config use-context spoke1
+ f.g: $kubectl config use-contex iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io
 $kubectl get all
 $kubectl edit configmap
 you can see this 
@@ -158,6 +164,7 @@ data:
 
 
 ### applicaton is deployed on multiple cluster ###
+##########################
 
 lets make a changes in configmap.yml manifest 
 will our argo cd will identify the change and it should be deployed on to the cluster
