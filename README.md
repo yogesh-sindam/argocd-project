@@ -10,7 +10,7 @@ how argocd is used at production levle
 deploying a application on multiple cluster
 
 pre-requisites:
-1. 3 EKS cluster (1 for Hub, 2 for spoke)
+1. 3 EKS cluster (kube1 for Hub, 2 for spoke)
   Hub-Spoke deployment:
 
 steps:
@@ -22,7 +22,7 @@ steps:
 
 ##########################
 **step1 start:**
-create a cluster with the following command:
+create a cluster with the followinfig g command:
 eksctl create cluster --name hub-cluster --region  
 eksctl create cluster --name spoke-cluster-1 --region ap-southeast-2
 eksctl create cluster --name spoke-cluster-2 --region ap-southeast-2
@@ -81,6 +81,42 @@ $argocd login argocdip
 username: admin
 pass: abcdhdfk
 
+$argocd cluster add context_of_cluster --server ip_address_of_argocd
+
+**NOTE: ** Do the same for spoke 2 cluster also
+
+**step5 start:**
+Go to argocd Home page:
+application-> create new application 
+  Application: guestbook1(randomname)
+  project: default:
+  sync policy: automatic
+  repo url: give github repo url http(repo should be public in this project )
+  path: manifests/guest-book
+  Destination:
+  clusterURL: (spoke1)select 1 cluster which is need to be added 
+  namespace: default
+  create:
+do this to add another cluster also 
+
+check your application deployed or not 
+$kubectl config use-context spoke1
+$kubectl get all
+
+### applicaton is deployed on multiple cluster ###
+
+lets make a changes in configmap.yml manifest 
+will our argo cd will identify the change and it should be deployed on to the cluster
+data:
+  ui_properties_file_name: "yogesh-interface.properties"
+-->
+data:
+  ui_properties_file_name: "abhishek-interface.properties"
+
+
+Go to ArgoCD admin page 
+argocd will auto-sync for 3min timeframe
+you can manually sync click on **sync app** --> select 2 cluster --> sync 
 
 
 
