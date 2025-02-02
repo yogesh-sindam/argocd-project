@@ -3,17 +3,8 @@ this repository testing for deploy application on multiple cluster using GitOps 
 ##
 GitOps tools like argocd, flux 
 how argocd is used at production levle 
-
-
-
 ##########################
-deploying a application on multiple cluster
 
-**pre-requisites:**
-1. 3 EKS cluster (kube1 for Hub, 2 for spoke)
-  Hub-Spoke deployment:
-###############################
-**steps:**
 1. create a 3 AWS EKS cluster with name
 2. Install argocd on Hub cluster
 3. UI login to Argocd
