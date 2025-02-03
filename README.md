@@ -52,7 +52,9 @@ argocd-server-8667f8577-xh8q5                       1/1     Running   0         
 for this project we are creating a  HTTP model 
 run server without TLS
 
-$kubctl get cm -n argocd
+$kubectl get configmap -n argocd
+          OR
+$kubectl get cm -n argocd
 NAME                        DATA   AGE
 argocd-cm                   0      4m1s
 argocd-cmd-params-cm        0      4m1s
