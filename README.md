@@ -19,12 +19,13 @@ $eksctl create cluster --name spoke-cluster-1 --region ap-southeast-2
 $eksctl create cluster --name spoke-cluster-2 --region ap-southeast-2
 
 check how many cluster with the namespce ap-southeast-2
+```
 $kubectl get cluster 
 $Kubectl config get-contexts | grep ap-southeast-2
 CURRENT   NAME                                                        CLUSTER                                    AUTHINFO                                                    NAMESPACE
           iam-root-account@hub-cluster.ap-southeast-2.eksctl.io       hub-cluster.ap-southeast-2.eksctl.io       iam-root-account@hub-cluster.ap-southeast-2.eksctl.io
 *         iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io   spoke-cluster-1.ap-southeast-2.eksctl.io   iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io
-
+```
 
 $kubectl config use-contexts namespace_of_cluster
 $kubectl config use-contexts iam-root-account@hub-cluster.ap-southeast-2.eksctl.io
