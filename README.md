@@ -14,10 +14,11 @@ how argocd is used at production levle
 ##########################
 **step1 start:**
 create a cluster with the followinfig g command:
+```
 $eksctl create cluster --name hub-cluster --region ap-southeast-2
 $eksctl create cluster --name spoke-cluster-1 --region ap-southeast-2
 $eksctl create cluster --name spoke-cluster-2 --region ap-southeast-2
-
+```
 check how many cluster with the namespce ap-southeast-2
 ```
 $kubectl get cluster 
@@ -26,17 +27,18 @@ CURRENT   NAME                                                        CLUSTER   
           iam-root-account@hub-cluster.ap-southeast-2.eksctl.io       hub-cluster.ap-southeast-2.eksctl.io       iam-root-account@hub-cluster.ap-southeast-2.eksctl.io
 *         iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io   spoke-cluster-1.ap-southeast-2.eksctl.io   iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io
 ```
-
+```
 $kubectl config use-contexts namespace_of_cluster
 $kubectl config use-contexts iam-root-account@hub-cluster.ap-southeast-2.eksctl.io
 $kubectl config current-context
 iam-root-account@hub-cluster.ap-southeast-2.eksctl.io
-
+```
 all the action is preformed on hub cluster
 ##########################
 
 **step2 start:**
 install argocd with this command 
+```
 $kubectl create namespace argocd
 $kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 $kubect get pods -n argocd 
@@ -49,7 +51,7 @@ argocd-notifications-controller-69cd888b56-66fv6    1/1     Running   0         
 argocd-redis-55c76cb574-bz8xf                       1/1     Running   0          2m49s
 argocd-repo-server-584d45d88f-h9qfr                 1/1     Running   0          2m49s
 argocd-server-8667f8577-xh8q5                       1/1     Running   0          2m49s
-
+```
 for this project we are creating a  HTTP model 
 run server without TLS
 
