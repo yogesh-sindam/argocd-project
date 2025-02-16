@@ -54,7 +54,7 @@ argocd-server-8667f8577-xh8q5                       1/1     Running   0         
 ```
 for this project we are creating a  HTTP model 
 run server without TLS
-
+```
 $kubectl get configmap -n argocd
           OR
 $kubectl get cm -n argocd
@@ -67,7 +67,7 @@ argocd-rbac-cm              0      4m1s
 argocd-ssh-known-hosts-cm   1      4m1s
 argocd-tls-certs-cm         0      4m1s
 kube-root-ca.crt            1      4m55s
-
+```
 $kubctl edit configmap argocd-cmd-params-cm -n argocd 
 data:  
   # Run server without TLS
