@@ -68,6 +68,7 @@ argocd-ssh-known-hosts-cm   1      4m1s
 argocd-tls-certs-cm         0      4m1s
 kube-root-ca.crt            1      4m55s
 ```
+```
 $kubctl edit configmap argocd-cmd-params-cm -n argocd 
 data:  
   # Run server without TLS
@@ -75,24 +76,26 @@ data:
   -->
   server.insecure: "true" 
   -->
+```
 to secure your application you should never use HTTP for organization 
 create a secure HTTPS (TLS with secure)
 you need to sign in to ca-certificates autontication.
-
+```
 $kubectl get svc -n argocd 
 $kubectl edit svc argocd --server -n argocd
 type: ClusterIp
 --> 
 type:NodePort
 -->
-
+```
 check the service is changed form ClusterIp to NodePort
+```
 $kubectl edit svc argocd --server -n argocd
 argocd-server                             ClusterIP    10.100.161.58    <none>        80:32326/TCP,443:32079/TCP   12m
 -->
 argocd-server                             NodePort    10.100.161.58    <none>        80:32326/TCP,443:32079/TCP   12m
 -->
-
+```
 edit inbound rule for hub server
 edit port, protocal( all traffic for testing)
 
@@ -101,19 +104,24 @@ hit url: pulic ip of hub ec2-instance (103.105.0.0:32326)
 
 **step3 start**:
 username is admin
+```
 $kubectl get secrets -n argocd
 
 argocd-initial-admin-secret   Opaque   1      17m
 argocd-notifications-secret   Opaque   0      17m
 argocd-redis                  Opaque   1      17m
 argocd-secret                 Opaque   5      17m
-
+```
+```
 $kubectl edit secrets argocd-initial-admin-secre -n argocd
 b0Q3cXByR2hVbHEydzVYVQ==
 copy the password(b0Q3cXByR2hVbHEydzVYVQ==)
 this is in encrypted format, need to decode 
+```
+```
 $echo b0Q3cXByR2hVbHEydzVYVQ== | base64 --decode
 abcdhdfk(this is actial password without "%")
+```
 log-in the **argocd page:**
 ##########################
 
