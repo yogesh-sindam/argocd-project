@@ -131,15 +131,17 @@ need to add 2 spoke cluster to hub cluster
 you log-in to argo cd through UI
 **NOTE-** you can't add the cluster directly using argocd User interface
 to add the cluster you need to log-in to argocd CLI api also 
-
+```
 $argocd login argocdip
 $argocd login 103.105.0.0:32326 
 username: admin
 pass: abcdhdfk
-
+```
+```
 $argocd cluster add context_of_cluster --server ip_address_withport_argocd_page
 for example:
   $argocd cluster add iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io --server 103.105.0.0:32326
+```
 **NOTE: ** Do the same for remaining spoke cluster as wll.
 ##########################
  
@@ -158,6 +160,7 @@ application-> create new application
 do this to add another cluster also 
 
 check your application deployed or not 
+```
 $kubectl config use-context spoke1
  f.g: $kubectl config use-contex iam-root-account@spoke-cluster-1.ap-southeast-2.eksctl.io
 $kubectl get all
@@ -165,7 +168,7 @@ $kubectl edit configmap
 you can see this 
 data:
   ui_properties_file_name: "yogesh-interface.properties"
-
+```
 
 ### applicaton is deployed on multiple cluster ###
 ##########################
