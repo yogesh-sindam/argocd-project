@@ -175,12 +175,13 @@ data:
 
 lets make a changes in configmap.yml manifest 
 will our argo cd will identify the change and it should be deployed on to the cluster
+```
 data:
   ui_properties_file_name: "yogesh-interface.properties"
 -->
 data:
   ui_properties_file_name: "abhishek-interface.properties"
-
+```
 
 Go to ArgoCD admin page 
 argocd will auto-sync for 3min timeframe
