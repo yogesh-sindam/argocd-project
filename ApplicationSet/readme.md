@@ -9,7 +9,7 @@ The ApplicationSet controller is a Kubernetes controller that adds support for a
 
 ## Generator 
 
-list generator:
+`list generator`:
 The List generator allows you to target Argo CD Applications to clusters based on a fixed list of any chosen key/value element pairs.
 ```
 apiVersion: argoproj.io/v1alpha1
@@ -41,11 +41,35 @@ spec:
         namespace: guestbook
 ```
 
-Cluster generator 
+`Cluster generator` 
+```
+`apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          staging: "true"
+        # The cluster generator also supports matchExpressions.
+        #matchExpressions:
+        #  - key: staging
+        #    operator: In
+        #    values:
+        #      - "true"
+  template:
+  # (...)
+```
 
-Git generator
 
-Matrix generator 
+`Git generator`
+
+`Matrix generator `
 
 
 
