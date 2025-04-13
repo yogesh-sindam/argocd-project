@@ -9,5 +9,45 @@ The ApplicationSet controller is a Kubernetes controller that adds support for a
 
 ## Generator 
 
+list generator:
+The List generator allows you to target Argo CD Applications to clusters based on a fixed list of any chosen key/value element pairs.
+```
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - cluster: engineering-dev
+        url: https://kubernetes.default.svc
+      # - cluster: engineering-prod
+      #   url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{.cluster}}-guestbook'
+    spec:
+      project: "my-project"
+      source:
+        repoURL: https://github.com/argoproj/argo-cd.git
+        targetRevision: HEAD
+        path: applicationset/examples/list-generator/guestbook/{{.cluster}}
+      destination:
+        server: '{{.url}}'
+        namespace: guestbook
+```
+
+Cluster generator 
+
+Git generator
+
+Matrix generator 
+
+
+
 
 
