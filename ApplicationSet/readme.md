@@ -140,8 +140,7 @@ spec:
         namespace: '{{.path.basename}}'
 ```
 
-
-
+there are some of few will be added in the next turn
 
 
 
